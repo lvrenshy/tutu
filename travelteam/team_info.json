@@ -1,0 +1,272 @@
+[
+{
+"id":1,
+"team_name_id":"Gradually",
+"starttime":"2018/10/1 09:26:09",
+"endtime":"2018/10/4 09:26:20",
+"introduce":"北京四日游",
+"start_stage":"故宫",
+"end_stage":"景山公园"
+},
+{
+"id":2,
+"team_name_id":"Love to stay",
+"starttime":"2018/9/1 09:31:34",
+"endtime":"2018/9/2 09:31:40",
+"introduce":"成都两日游",
+"start_stage":"成都大熊猫繁育研究基地",
+"end_stage":"宽窄巷子"
+},
+{
+"id":3,
+"team_name_id":"Immovable ",
+"starttime":"2018/10/5 09:32:36",
+"endtime":"2018/10/7 09:32:42",
+"introduce":"坨山两日游",
+"start_stage":"普陀山",
+"end_stage":"舟山惠济禅寺"
+},
+{
+"id":4,
+"team_name_id":"Reason",
+"starttime":"2018/10/6 09:33:30",
+"endtime":"2018/10/7 09:33:36",
+"introduce":"苏州两日游",
+"start_stage":"苏州博物馆",
+"end_stage":"七里山塘"
+},
+{
+"id":5,
+"team_name_id":"Hi point",
+"starttime":"2018/3/1 09:34:35",
+"endtime":"2018/3/4 09:34:48",
+"introduce":"珠海四日游",
+"start_stage":"情侣路",
+"end_stage":"珠海圆明新园"
+},
+{
+"id":6,
+"team_name_id":"Broken vow",
+"starttime":"2018/8/16 09:35:33",
+"endtime":"2018/8/19 09:35:43",
+"introduce":"西安四日游",
+"start_stage":"秦始皇兵马俑博物馆",
+"end_stage":"大唐芙蓉园"
+},
+{
+"id":7,
+"team_name_id":"Chandler",
+"starttime":"2018/7/5 09:36:28",
+"endtime":"2018/7/8 09:36:36",
+"introduce":"威海三日游",
+"start_stage":"刘公岛",
+"end_stage":"西霞口风景区"
+},
+{
+"id":8,
+"team_name_id":"CHAF5ERER",
+"starttime":"2018/6/1 09:37:53",
+"endtime":"2018/6/1 09:38:05",
+"introduce":"泰山一日游",
+"start_stage":"泰山",
+"end_stage":"泰山"
+},
+{
+"id":9,
+"team_name_id":"MSC-Adults",
+"starttime":"2018/5/3 09:38:45",
+"endtime":"2018/5/5 09:38:54",
+"introduce":"武汉两日游",
+"start_stage":"黄鹤楼",
+"end_stage":"昙华林"
+},
+{
+"id":10,
+"team_name_id":"Rael",
+"starttime":"2018/10/3 09:40:28",
+"endtime":"2018/10/7 09:40:32",
+"introduce":"呼伦比尔四日游",
+"start_stage":"呼伦贝尔大草原",
+"end_stage":"室韦俄罗斯民族乡"
+},
+{
+"id":11,
+"team_name_id":"Irene",
+"starttime":"2018/5/4 09:41:24",
+"endtime":"2018/5/6 09:41:35",
+"introduce":"大连三日游",
+"start_stage":"大连滨海路",
+"end_stage":"金石滩国家旅游度假区 "
+},
+{
+"id":12,
+"team_name_id":"Ending o",
+"starttime":"2018/2/22 09:42:39",
+"endtime":"2018/2/23 09:42:53",
+"introduce":"天津两日游",
+"start_stage":"天津之眼",
+"end_stage":"意大利风情街"
+},
+{
+"id":13,
+"team_name_id":"Lie.",
+"starttime":"2018/1/1 09:43:47",
+"endtime":"2018/1/4 09:43:56",
+"introduce":"天津四日游",
+"start_stage":"五大道",
+"end_stage":"古文化街"
+},
+{
+"id":14,
+"team_name_id":"Lonely.",
+"starttime":"2018/6/13 09:44:46",
+"endtime":"2018/6/15 09:44:53",
+"introduce":"丽江两日游",
+"start_stage":"泸沽湖",
+"end_stage":"丽江千古情景区"
+},
+{
+"id":15,
+"team_name_id":"Kinky",
+"starttime":"2018/6/29 09:45:53",
+"endtime":"2018/6/30 09:46:14",
+"introduce":"昆明两日游",
+"start_stage":"翠湖公园",
+"end_stage":"云南大学"
+},
+{
+"id":16,
+"team_name_id":"Sheo-rou",
+"starttime":"2018/10/12 09:47:23",
+"endtime":"2018/10/13 09:47:29",
+"introduce":"成都两日游",
+"start_stage":"成都大熊猫繁育研究基地 ",
+"end_stage":"宽窄巷子"
+},
+{
+"id":17,
+"team_name_id":"A sense of.",
+"starttime":"2018/9/6 09:48:11",
+"endtime":"2018/9/7 09:48:16",
+"introduce":"杭州两日游",
+"start_stage":"西湖",
+"end_stage":"杭州宋城旅游区"
+},
+{
+"id":18,
+"team_name_id":"Westare Winner!",
+"starttime":"2018/10/1 09:49:18",
+"endtime":"2018/10/2 09:49:22",
+"introduce":"千岛湖两日游",
+"start_stage":"千岛湖风景区",
+"end_stage":"情人谷"
+},
+{
+"id":19,
+"team_name_id":"C-Drummer",
+"starttime":"2018/10/1 09:50:25",
+"endtime":"2018/10/3 09:50:29",
+"introduce":"南浔三日游",
+"start_stage":"百间楼",
+"end_stage":"小莲庄"
+},
+{
+"id":20,
+"team_name_id":"胜羽",
+"starttime":"2018/10/1 09:51:20",
+"endtime":"2018/10/1 09:51:26",
+"introduce":"西塘一日游",
+"start_stage":"西塘古镇 ",
+"end_stage":"西塘古镇 "
+},
+{
+"id":21,
+"team_name_id":"飞跃",
+"starttime":"2018/10/6 09:52:13",
+"endtime":"2018/10/7 09:52:30",
+"introduce":"千岛湖两日游",
+"start_stage":"千岛湖风景区 ",
+"end_stage":"千岛湖森林氧吧"
+},
+{
+"id":22,
+"team_name_id":"智联",
+"starttime":"2018/9/4 09:53:18",
+"endtime":"2018/9/6 09:53:26",
+"introduce":"海口两日游",
+"start_stage":"骑楼老街",
+"end_stage":"雷琼地质公园"
+},
+{
+"id":23,
+"team_name_id":"新秀",
+"starttime":"2018/10/1 09:54:07",
+"endtime":"2018/10/7 09:54:12",
+"introduce":"无锡七日游",
+"start_stage":"鼋头渚 ",
+"end_stage":"宜兴竹海风景区"
+},
+{
+"id":24,
+"team_name_id":"明日之星",
+"starttime":"2018/10/1 09:54:51",
+"endtime":"2018/10/4 09:54:55",
+"introduce":"林芝四日游",
+"start_stage":"雅鲁藏布大峡谷",
+"end_stage":"米堆冰川 "
+},
+{
+"id":25,
+"team_name_id":"我们",
+"starttime":"2018/10/1 10:00:45",
+"endtime":"2018/10/2 10:00:49",
+"introduce":"黄果树两日游",
+"start_stage":"黄果树瀑布",
+"end_stage":"石头寨"
+},
+{
+"id":26,
+"team_name_id":"风之彩",
+"starttime":"2018/10/2 10:01:35",
+"endtime":"2018/10/6 10:01:41",
+"introduce":"烟台四日游",
+"start_stage":"蓬莱阁风景区",
+"end_stage":"烟台山景区 "
+},
+{
+"id":27,
+"team_name_id":"同路人",
+"starttime":"2018/8/1 10:02:21",
+"endtime":"2018/8/5 10:02:29",
+"introduce":"张家界五日游",
+"start_stage":"张家界国家森林公园",
+"end_stage":"武陵源风景名胜区 "
+},
+{
+"id":28,
+"team_name_id":"天马行空",
+"starttime":"2018/10/2 10:03:09",
+"endtime":"2018/10/5 10:03:13",
+"introduce":"恩施三日游",
+"start_stage":"恩施大峡谷",
+"end_stage":"鹿院坪"
+},
+{
+"id":29,
+"team_name_id":"众一",
+"starttime":"2018/2/6 10:03:54",
+"endtime":"2018/2/8 10:04:00",
+"introduce":"黄山两日游",
+"start_stage":"黄山风景区",
+"end_stage":"徽州古城 "
+},
+{
+"id":30,
+"team_name_id":"Evans",
+"starttime":"2018/10/1 10:04:50",
+"endtime":"2018/10/5 10:04:54",
+"introduce":"洛阳五日游",
+"start_stage":"龙门石窟",
+"end_stage":"洛阳老街"
+}
+]

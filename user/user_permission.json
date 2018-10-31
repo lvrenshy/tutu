@@ -1,0 +1,12 @@
+[
+{
+"id":1,
+"permission_id":0,
+"permission_name":"管理员"
+},
+{
+"id":2,
+"permission_id":1,
+"permission_name":"普通用户"
+}
+]
