@@ -151,7 +151,7 @@ def waitquestion(request):
     # 拿到未问题页数。一页显示三个
     l = math.ceil(len / 3)
     # ff是未解决问题和提问人的字典列表
-    ff = list(models.question.objects.filter(question_style_id=1).values('content'))
+    ff = list(models.question.objects.filter(question_style_id=1).values('content').order_by('-spare1'))
     # if request.body:
     #     page=int(json.loads(request.body)['page'])
     #     if page==1:

@@ -346,15 +346,18 @@ def createteam(request):
                 'status_id_id':0
                 }
             models.team.objects.create(**aa)
+            print((infomation['starttime']).replace('-','/'),'开始时间',1111111111111111111)
+            print((infomation['endtime']).replace('-','/'),'结束时间','1111111111111111111')
             bb={
                 'team_name_id':infomation['teamname'],
                 'start_stage':infomation['startstage'],
                 'end_stage':infomation['endstage'],
-                'starttime':infomation['starttime'],
-                'endtime':infomation['endtime'],
+                'starttime':(infomation['starttime']).replace('-','/'),
+                'endtime':(infomation['endtime']).replace('-','/'),
                 'introduce':infomation['intro'],
                 'team_number':infomation['num'],
             }
+
             models.teaminfo.objects.create(**bb)
             return JsonResponse({'code':'开团成功'})
         except Exception as ex:
@@ -372,10 +375,11 @@ def jointeam(request):
     us_name = decoded['user_id']
 
     if decoded:
+        print(1111111111111111111111111111111111,request.body)
         uu = json.loads(request.body)
         # 我想要参加的团名
         want_team_name=uu['teamname']
-
+        # 找到我参过的团和跟过的团
         myteam=models.team.objects.filter(launch_name_id_id=us_name).values('team_name')
         myteam2=models.followuser.objects.filter(u_name_id=us_name).values('team_name_id')
         # 找到我开过团的团名
@@ -384,13 +388,10 @@ def jointeam(request):
         m_team2=list(myteam2)
         aa=[]
         print(want_team_name)
-        print(m_team[0]['team_name'])
-        print(m_team2[0]['team_name_id'])
         for i in m_team:
             aa.append(i['team_name'])
         for i in m_team2:
             aa.append(i['team_name_id'])
-        print(aa,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         if not want_team_name in aa:
             infomation = {
                 'u_name_id': us_name,

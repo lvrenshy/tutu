@@ -78,7 +78,7 @@ def showshare(request):
                 # 查询点赞过的分享名
                 uu = models.share.objects.filter(id=xx).values('share_name')
                 ff.append(list(uu)[0])
-
+            print(ff,'ffffffffffffffff')
             return JsonResponse({'code': ff})
         else:
             return JsonResponse({'code':412})
@@ -123,7 +123,7 @@ def showtip(request):
                     uu = models.tips.objects.filter(id=xx).values('tip_name')
                     ff.append(list(uu)[0])
                     print(ff)
-
+                print(ff,'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq')
                 return JsonResponse({'code': ff})
             else:
                 return JsonResponse({'code': 412})
@@ -170,7 +170,6 @@ def showshareReview(request):
             if uu[i]['content_share_id']:
                 aa = []
                 content=models.review.objects.filter(reviewer_id=decoded['user_id'],content_share_id=uu[i]['content_share_id']).values('content')
-                print(content,'ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc')
                 share_name = models.share.objects.filter(id=uu[i]['content_share_id']).values('share_name')
                 aa.append(list(content)[0])
 
@@ -204,9 +203,7 @@ def showtipReview(request):
                 aa.append(list(content)[0])
 
                 aa.append(list(tip_name)[0])
-                print(aa,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                 bb.append(list(aa))
-        print(bb,'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
 
         return JsonResponse({'code': bb})
     else:

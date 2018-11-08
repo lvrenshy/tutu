@@ -221,20 +221,56 @@ def abcd(request):
                 return JsonResponse({"acount": a1})
 
 def search(request):
-    if not request.body:
+    # if not request.body:
+    #     abcd = []
+    #     efg = []
+    #     len = models.team.objects.count()
+    #     l = math.ceil(len / 2)
+    #     ff = list(models.teaminfo.objects.values('team_name_id').order_by('-starttime'))
+    #     mmm=[]
+    #     mmm.append(ff[0])
+    #     mmm.append(ff[1])
+    #     for i in mmm:
+    #         a1 = []
+    #         t_name = list(models.team.objects.filter(team_name=i["team_name"]).values('launch_name_id'))[0]
+    #         aa = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('starttime', 'introduce','team_name_id', 'team_number'))
+    #         # print('aa',aa)
+    #         start_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('start_stage'))
+    #         end_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('end_stage'))
+    #         ss = start_stage[0]['start_stage']
+    #         es = end_stage[0]['end_stage']
+    #         uu = {'luxian': ss + '--' + es}
+    #         a1.append(t_name)
+    #         a1.append(uu)
+    #         for i in list(aa):
+    #             a1.append(i)
+    #         abcd.append(a1)
+    #     ll = {'page': l}
+    #     efg.append(ll)
+    #     abcd.append(efg)
+    #     return JsonResponse({"acount": abcd})
+    # else:
+    ss=json.loads(request.body)
+    # 如果有页码没有搜索内容时(即不输入搜索字段，点击页码查看)
+    if ss['page'] and not ss['content']:
+        len = models.teaminfo.objects.count()
+        l = math.ceil(len / 2)
+        bb = []
         abcd = []
         efg = []
-        len = models.team.objects.count()
-        l = math.ceil(len / 2)
-        ff = list(models.team.objects.filter(id__in=[1, 2]).values('team_name'))
+        ff = list(models.teaminfo.objects.values('id').order_by('-starttime'))
         for i in ff:
+            bb.append(i['id'])
+        bb.sort()
+        print(bb,'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+        page = int(ss['page'])
+        for i in range((page - 1) * 2, page * 2):
             a1 = []
-            t_name = list(models.team.objects.filter(team_name=i["team_name"]).values('launch_name_id'))[0]
-            aa = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('starttime', 'introduce',
-                                                                                         'team_name_id', 'team_number'))
-            # print('aa',aa)
-            start_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('start_stage'))
-            end_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('end_stage'))
+            ppname = list(models.teaminfo.objects.filter(id=bb[i]).values('team_name_id'))[0]
+            t_name = list(models.team.objects.filter(team_name=ppname['team_name_id']).values('launch_name_id'))[0]
+            aa = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name_id']).values('starttime', 'introduce','team_name_id','team_number'))
+            start_stage = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name_id']).values('start_stage'))
+            end_stage = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name_id']).values('end_stage'))
             ss = start_stage[0]['start_stage']
             es = end_stage[0]['end_stage']
             uu = {'luxian': ss + '--' + es}
@@ -247,185 +283,155 @@ def search(request):
         efg.append(ll)
         abcd.append(efg)
         return JsonResponse({"acount": abcd})
-    else:
-        ss=json.loads(request.body)
-        # 如果有页码没有搜索内容时(即不输入搜索字段，点击页码查看)
-        if ss['page'] and not ss['content']:
-            len = models.team.objects.count()
-            l = math.ceil(len / 2)
-            bb = []
-            abcd = []
-            efg = []
-            ff = list(models.team.objects.values('id'))
-            for i in ff:
-                bb.append(i['id'])
-            bb.sort()
-            print(bb, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
-            page = int(ss['page'])
-            for i in range((page - 1) * 2, page * 2):
-                a1 = []
-                ppname = list(models.team.objects.filter(id=bb[i]).values('team_name'))[0]
-                t_name = list(models.team.objects.filter(id=bb[i]).values('launch_name_id'))[0]
-                aa = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name']).values('starttime', 'introduce','team_name_id','team_number'))
-                start_stage = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name']).values('start_stage'))
-                end_stage = list(models.teaminfo.objects.filter(team_name_id=ppname['team_name']).values('end_stage'))
-                ss = start_stage[0]['start_stage']
-                es = end_stage[0]['end_stage']
-                uu = {'luxian': ss + '--' + es}
-                a1.append(t_name)
-                a1.append(uu)
-                for i in list(aa):
-                    a1.append(i)
-                abcd.append(a1)
-            ll = {'page': l}
-            efg.append(ll)
-            abcd.append(efg)
-            return JsonResponse({"acount": abcd})
-        # 如果有搜索内容没有页码时(即输入搜索内容后点击搜索后)
-        elif ss['content'] and not ss['page']:
-            abcd = []
-            efg = []
-            # ff = list(models.team.objects.values('id'))
-            # 拿到模糊搜索查到的次数
-            len = models.team.objects.filter(team_name__iregex=ss['content']).count()
-            if len > 1:
-                l = math.ceil(len / 2)
-                # 拿到模糊搜索出的所有团名
-                aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))
-                print(11111111111111111111111111111111)
-                for i in range(0,2):
-                    bb = []
-                    print(2222222222222222222222222222222222)
-                    aa[i]['launch_name_id'] = aa[i].pop('team_name')
-                    bb.append(aa[i])
+    # 如果有搜索内容没有页码时(即输入搜索内容后点击搜索后)
+    # elif ss['content'] and not ss['page']:
+    #     abcd = []
+    #     efg = []
+    #     # ff = list(models.team.objects.values('id'))
+    #     # 拿到模糊搜索查到的次数
+    #     len = models.team.objects.filter(team_name__iregex=ss['content']).count()
+    #     if len > 1:
+    #         l = math.ceil(len / 2)
+    #         # 拿到模糊搜索出的所有团名
+    #         aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))
+    #         print(11111111111111111111111111111111)
+    #         for i in range(0,2):
+    #             bb = []
+    #             print(2222222222222222222222222222222222)
+    #             aa[i]['launch_name_id'] = aa[i].pop('team_name')
+    #             bb.append(aa[i])
+    #
+    #             d4 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('starttime', 'introduce', 'team_name_id', 'team_number'))[0]
+    #             d6 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('start_stage'))[0]
+    #             d7 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('end_stage'))[0]
+    #             ss = d6['start_stage']
+    #             es = d7['end_stage']
+    #             uu = {'luxian': ss + '--' + es}
+    #             bb.append(uu)
+    #             bb.append(d4)
+    #             abcd.append(bb)
+    #         ll = {'page': l}
+    #         efg.append(ll)
+    #         abcd.append(efg)
+    #         return JsonResponse({'acount': abcd})
+    #     elif len==1:
+    #         aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))[0]
+    #         print(11111111111111111111111111111111)
+    #         # for i in range(0, 2):
+    #         bb = []
+    #         print(2222222222222222222222222222222222)
+    #         aa['launch_name_id'] = aa.pop('team_name')
+    #         bb.append(aa)
+    #         d4 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('starttime', 'introduce','team_name_id','team_number'))[0]
+    #         d6 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('start_stage'))[0]
+    #         d7 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('end_stage'))[0]
+    #         ss = d6['start_stage']
+    #         es = d7['end_stage']
+    #         uu = {'luxian': ss + '--' + es}
+    #         bb.append(uu)
+    #         bb.append(d4)
+    #         abcd.append(bb)
+    #         ll = {'page': 1}
+    #         efg.append(ll)
+    #         abcd.append(efg)
+    #         return JsonResponse({'acount': abcd})
+    #     else:
+    #         return JsonResponse({'acount':'暂无搜索内容'})
 
-                    d4 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('starttime', 'introduce', 'team_name_id', 'team_number'))[0]
-                    d6 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('start_stage'))[0]
-                    d7 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('end_stage'))[0]
-                    ss = d6['start_stage']
-                    es = d7['end_stage']
-                    uu = {'luxian': ss + '--' + es}
-                    bb.append(uu)
-                    bb.append(d4)
-                    abcd.append(bb)
-                ll = {'page': l}
-                efg.append(ll)
-                abcd.append(efg)
-                return JsonResponse({'acount': abcd})
-            elif len==1:
-                aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))[0]
-                print(11111111111111111111111111111111)
-                # for i in range(0, 2):
+    # elif not ss['content'] and not ss['page']:
+    #     abcd = []
+    #     efg = []
+    #     len = models.teaminfo.objects.count()
+    #     l = math.ceil(len / 2)
+    #     ff = list(models.teaminfo.objects.values('team_name_id').order_by('-starttime'))
+    #     mmmm=[]
+    #     mmmm.append(ff[0])
+    #     mmmm.append(ff[1])
+    #     for i in ff:
+    #         a1 = []
+    #         t_name = list(models.team.objects.filter(team_name=i["team_name"]).values('launch_name_id'))[0]
+    #         aa = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('starttime', 'introduce',
+    #                                                                                      'team_name_id',
+    #                                                                                      'team_number'))
+    #         # print('aa',aa)
+    #         start_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('start_stage'))
+    #         end_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('end_stage'))
+    #         ss = start_stage[0]['start_stage']
+    #         es = end_stage[0]['end_stage']
+    #         uu = {'luxian': ss + '--' + es}
+    #         a1.append(t_name)
+    #         a1.append(uu)
+    #         for i in list(aa):
+    #             a1.append(i)
+    #         abcd.append(a1)
+    #     ll = {'page': l}
+    #     efg.append(ll)
+    #     abcd.append(efg)
+    #     return JsonResponse({"acount": abcd})
+
+    elif ss['content'] and ss['page']:
+        print(ss['content'],'ssssssssssssssssssssssssssssssss')
+        abcd = []
+        efg = []
+        # ff = list(models.team.objects.values('id'))
+        page = int(json.loads(request.body)['page'])
+        # 拿到模糊搜索查到的次数
+        len = models.team.objects.filter(team_name__icontains=ss['content']).count()
+        if len > 1:
+            l = math.ceil(len / 2)
+            # 拿到模糊搜索出的所有团名
+            aa = list(models.team.objects.filter(team_name__icontains=ss['content']).values('team_name').order_by('-id'))
+            print(11111111111111111111111111111111)
+            for i in range((page - 1) * 2, page * 2):
                 bb = []
                 print(2222222222222222222222222222222222)
-                aa['launch_name_id'] = aa.pop('team_name')
-                bb.append(aa)
-                d4 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('starttime', 'introduce','team_name_id','team_number'))[0]
-                d6 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('start_stage'))[0]
-                d7 = list(models.teaminfo.objects.filter(team_name_id=aa['launch_name_id']).values('end_stage'))[0]
+                aa[i]['launch_name_id'] = aa[i].pop('team_name')
+                bb.append(aa[i])
+                d4 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('starttime','introduce','team_name_id','team_number'))[0]
+                d6 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('start_stage'))[0]
+                d7 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('end_stage'))[0]
                 ss = d6['start_stage']
                 es = d7['end_stage']
                 uu = {'luxian': ss + '--' + es}
                 bb.append(uu)
                 bb.append(d4)
                 abcd.append(bb)
-                ll = {'page': 1}
-                efg.append(ll)
-                abcd.append(efg)
-                return JsonResponse({'acount': abcd})
-            else:
-                return JsonResponse({'acount':'暂无搜索内容'})
-
-        elif not ss['content'] and not ss['page']:
-            abcd = []
-            efg = []
-            len = models.team.objects.count()
-            l = math.ceil(len / 2)
-            ff = list(models.team.objects.filter(id__in=[1, 2]).values('team_name'))
-            for i in ff:
-                a1 = []
-                t_name = list(models.team.objects.filter(team_name=i["team_name"]).values('launch_name_id'))[0]
-                aa = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('starttime', 'introduce',
-                                                                                             'team_name_id',
-                                                                                             'team_number'))
-                # print('aa',aa)
-                start_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('start_stage'))
-                end_stage = list(models.teaminfo.objects.filter(team_name_id=i['team_name']).values('end_stage'))
-                ss = start_stage[0]['start_stage']
-                es = end_stage[0]['end_stage']
-                uu = {'luxian': ss + '--' + es}
-                a1.append(t_name)
-                a1.append(uu)
-                for i in list(aa):
-                    a1.append(i)
-                abcd.append(a1)
             ll = {'page': l}
             efg.append(ll)
             abcd.append(efg)
-            return JsonResponse({"acount": abcd})
-
-        elif ss['content'] and ss['page']:
-            abcd = []
+            return JsonResponse({'acount': abcd})
+        elif len==1:
             efg = []
-            # ff = list(models.team.objects.values('id'))
-            page = int(json.loads(request.body)['page'])
-            # 拿到模糊搜索查到的次数
-            len = models.team.objects.filter(team_name__iregex=ss['content']).count()
-            if len > 1:
-                l = math.ceil(len / 2)
-                # 拿到模糊搜索出的所有团名
-                aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))
-                print(11111111111111111111111111111111)
-                for i in range((page - 1) * 2, page * 2):
-                    bb = []
-                    print(2222222222222222222222222222222222)
-                    aa[i]['launch_name_id'] = aa[i].pop('team_name')
-                    bb.append(aa[i])
-                    d4 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('starttime','introduce','team_name_id','team_number'))[0]
-                    d6 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('start_stage'))[0]
-                    d7 = list(models.teaminfo.objects.filter(team_name_id=aa[i]['launch_name_id']).values('end_stage'))[0]
-                    ss = d6['start_stage']
-                    es = d7['end_stage']
-                    uu = {'luxian': ss + '--' + es}
-                    bb.append(uu)
-                    bb.append(d4)
-                    abcd.append(bb)
-                ll = {'page': l}
-                efg.append(ll)
-                abcd.append(efg)
-                return JsonResponse({'acount': abcd})
-            elif len==1:
-                efg = []
-                a1 = []
-                l = 1
-                aa = list(models.team.objects.filter(team_name__iregex=ss['content']).values('team_name'))
-                ff = []
-                ff.append(aa[0])
-                print(ff)
-                t_name = list(models.team.objects.filter(team_name=ff[0]["team_name"]).values('launch_name_id'))[0]
-                aa = list(
-                    models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('starttime', 'introduce','team_name_id','team_number'))
-                # print('aa',aa)
-                start_stage = list(
-                    models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('start_stage'))
-                end_stage = list(models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('end_stage'))
-                ss = start_stage[0]['start_stage']
-                es = end_stage[0]['end_stage']
-                uu = {'luxian': ss + '--' + es}
-                a1.append(t_name)
-                a1.append(uu)
-                for i in list(aa):
-                    a1.append(i)
-                ll = {'page': l}
-                efg.append(ll)
-                a1.append(efg)
-                return JsonResponse({"acount": a1})
-            else:
-                return JsonResponse({'acount':'暂无搜索内容'})
+            a1 = []
+            l = 1
+            aa = list(models.team.objects.filter(team_name__icontains=ss['content']).values('team_name').order_by('-id'))
+            ff = []
+            ff.append(aa[0])
+            print(ff)
+            t_name = list(models.team.objects.filter(team_name=ff[0]["team_name"]).values('launch_name_id'))[0]
+            aa = list(models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('starttime', 'introduce','team_name_id','team_number'))
+            # print('aa',aa)
+            start_stage = list(
+                models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('start_stage'))
+            end_stage = list(models.teaminfo.objects.filter(team_name_id=ff[0]['team_name']).values('end_stage'))
+            ss = start_stage[0]['start_stage']
+            es = end_stage[0]['end_stage']
+            uu = {'luxian': ss + '--' + es}
+            a1.append(t_name)
+            a1.append(uu)
+            for i in list(aa):
+                a1.append(i)
+            ll = {'page': l}
+            efg.append(ll)
+            a1.append(efg)
+            return JsonResponse({"acount": a1})
+        else:
+            return JsonResponse({'acount':'暂无搜索内容'})
 # 根据团名查询团内成员
 def teamers(request):
     # 拿到团名
     ssss=json.loads(request.body)['teamname']
+    print(ssss,'ssssssssssssssssssssssssssss')
     a=list(models.team.objects.filter(team_name=ssss).values('launch_name_id'))[0]
     b=list(models.followuser.objects.filter(team_name_id=ssss).values('u_name_id'))
     abc=[]
